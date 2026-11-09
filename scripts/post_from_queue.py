@@ -40,7 +40,8 @@ args = [sys.executable, 'scripts/post_reel.py', video, cap]
 if os.path.exists(os.path.join(q, item, 'cover.jpg')):   # repo is public, so Instagram can fetch the raw file
     args.append(f'https://raw.githubusercontent.com/{REPO}/queue/{item}/cover.jpg')
     print('cover:', args[-1])
-out = subprocess.run(args, capture_output=True, text=True)
+env = dict(os.environ, VIDEO_URL=f'https://raw.githubusercontent.com/{REPO}/queue/{item}/reel.mp4')
+out = subprocess.run(args, capture_output=True, text=True, env=env)
 sys.stderr.write(out.stderr)
 if out.returncode != 0:
     raise SystemExit(out.stdout + out.stderr)

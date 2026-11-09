@@ -36,21 +36,26 @@ def main():
     size = os.path.getsize(video)
 
     # 1) create a resumable REELS container
-    params = {'media_type': 'REELS', 'upload_type': 'resumable', 'caption': caption,
-              'share_to_feed': 'true', 'access_token': TOKEN}
+    vurl = os.environ.get('VIDEO_URL', '').strip()   # public URL of the mp4 (preferred: Instagram fetches it)
+    params = {'media_type': 'REELS', 'caption': caption, 'share_to_feed': 'true', 'access_token': TOKEN}
+    if vurl:
+        params['video_url'] = vurl
+    else:
+        params['upload_type'] = 'resumable'
     if len(sys.argv) == 4 and sys.argv[3]:
         params['cover_url'] = sys.argv[3]   # public image URL used as the reel cover / thumbnail
     c = call('POST', f'{BASE}/{IGID}/media', params=params)
-    cid, uri = c['id'], c.get('uri') or f'https://rupload.facebook.com/ig-api-upload/{VER}/{c["id"]}'
+    cid = c['id']; uri = c.get('uri') or f'https://rupload.facebook.com/ig-api-upload/{VER}/{c["id"]}'
     print('container', cid, file=sys.stderr)
 
-    # 2) upload the bytes
-    with open(video, 'rb') as f:
+    # 2) upload the bytes (only for resumable uploads)
+    if not vurl:
+      with open(video, 'rb') as f:
         data = f.read()
-    up = call('POST', uri, data=data, headers={
+      up = call('POST', uri, data=data, headers={
         'Authorization': f'OAuth {TOKEN}', 'offset': '0', 'file_size': str(size),
         'Content-Type': 'application/octet-stream'})
-    print('upload', up, file=sys.stderr)
+      print('upload', up, file=sys.stderr)
 
     # 3) wait for processing
     for i in range(60):
