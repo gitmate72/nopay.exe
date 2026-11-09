@@ -2,8 +2,9 @@ name: Post reel to Instagram
 
 on:
   schedule:
-    - cron: '30 7 * * *'   # 13:00 IST
-    - cron: '0 14 * * *'   # 19:30 IST
+    # every 30 min across US daytime (16:07-02:37 UTC); the script posts once per US day at a random prime-time slot
+    - cron: '7,37 16-23 * * *'
+    - cron: '7,37 0-2 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
@@ -30,5 +31,6 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           IG_API_VERSION: ${{ vars.IG_API_VERSION || 'v23.0' }}
+          SCHEDULED: ${{ github.event_name == 'schedule' }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
         run: python3 scripts/post_from_queue.py

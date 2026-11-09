@@ -6,7 +6,8 @@ After a successful post: log it in posted/log.md on main, remove the folder, and
 branch as a single commit so posted videos don't pile up in git history.
 To stop a reel, delete its folder on the queue branch before the posting time.
 """
-import datetime, json, os, shutil, subprocess, sys, tempfile
+import datetime, json, os, random, re, shutil, subprocess, sys, tempfile
+from zoneinfo import ZoneInfo
 
 REPO = os.environ['GITHUB_REPOSITORY']
 TOKEN = os.environ['GH_TOKEN']
@@ -17,6 +18,23 @@ URL = f'https://x-access-token:{TOKEN}@github.com/{REPO}.git'
 def git(*a, cwd=None):
     subprocess.run(['git', *a], cwd=cwd, check=True)
 
+
+# ---- one reel per day at a random US prime-time minute (scheduled runs only; manual runs post now) ----
+ET = ZoneInfo('America/New_York')
+IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+if os.environ.get('SCHEDULED', 'false').lower() == 'true':
+    now_et = datetime.datetime.now(ET)
+    rnd = random.Random('nopay-' + now_et.strftime('%Y-%m-%d'))   # same random slot for every run of the day
+    lo, hi = rnd.choice([(12 * 60, 14 * 60), (18 * 60, 21 * 60)])   # US lunch 12-2 pm or evening 6-9 pm ET
+    target = rnd.randrange(lo, hi)
+    mins = now_et.hour * 60 + now_et.minute
+    print(f'ET now {now_et:%Y-%m-%d %H:%M}, today\'s slot {target // 60:02d}:{target % 60:02d} ET')
+    if mins < target:
+        print('::notice::Not time yet.'); sys.exit(0)
+    for line in open('posted/log.md', encoding='utf-8'):
+        m = re.match(r'\|\s*(\d{4}-\d{2}-\d{2} \d{2}:\d{2}) IST', line)
+        if m and datetime.datetime.strptime(m.group(1), '%Y-%m-%d %H:%M').replace(tzinfo=IST).astimezone(ET).date() == now_et.date():
+            print('::notice::Already posted today (US Eastern date).'); sys.exit(0)
 
 q = tempfile.mkdtemp() + '/queue'
 r = subprocess.run(['git', 'clone', '-q', '--depth', '1', '--branch', 'queue', URL, q], capture_output=True, text=True)
@@ -49,7 +67,7 @@ res = json.loads(out.stdout.strip().splitlines()[-1])
 print('Posted:', res)
 
 # log on main
-now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5, minutes=30))).strftime('%Y-%m-%d %H:%M IST')
+now = datetime.datetime.now(IST).strftime('%Y-%m-%d %H:%M IST')
 first = caption.splitlines()[0].replace('|', '/') if caption else ''
 with open('posted/log.md', 'a', encoding='utf-8') as f:
     f.write(f'| {now} | {item} | {first} | {res.get("permalink", "")} |\n')
