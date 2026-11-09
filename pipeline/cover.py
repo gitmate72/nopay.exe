@@ -1,6 +1,7 @@
 import sys, numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
-src, out = sys.argv[1], sys.argv[2]
+# usage: cover.py <frame.jpg> <out.jpg> <num> <BRAND> <domain> <BADGE> <line1> <line2>
+src, out, NUM, BRAND, DOMAIN, BADGE, L1, L2 = sys.argv[1:9]
 F='/home/claude/nopay.exe/pipeline/engine/fonts/'
 W,H=1080,1920; G=(57,255,110); D=(4,14,8)
 img=Image.new('RGB',(W,H),D); d=ImageDraw.Draw(img)
@@ -12,21 +13,21 @@ def ctext(y,t,s,fill=G,inv=False,pad=18):
     else: d.text((x,y),t,font=f,fill=fill)
     return d.textbbox((x,y),t,font=f)
 # top bar (outside grid crop, decorative)
-d.rectangle((40,60,W-40,120),fill=G); d.text((60,62),'nopay.exe #4',font=vt(52),fill=D); 
+d.rectangle((40,60,W-40,120),fill=G); d.text((60,62),f'nopay.exe #{NUM}',font=vt(52),fill=D); 
 f=vt(52); d.text((W-60-d.textlength('FREE AI',font=f),62),'FREE AI',font=f,fill=D)
 # headline (inside 3:4 grid crop y 240..1680)
 ctext(300,'STOP PAYING FOR',96)
-bb=ctext(410,'CAPCUT PRO',190)
+bb=ctext(410,BRAND,190 if len(BRAND)<=10 else int(1900/len(BRAND)))
 d.line((bb[0]-20,(bb[1]+bb[3])//2+8,bb[2]+20,(bb[1]+bb[3])//2+8),fill=(255,70,70),width=16)
 # real screenshot window, original colours
 shot=Image.open(src).convert('RGB'); sw=960; sh=int(shot.height*sw/shot.width); shot=shot.resize((sw,sh))
 y0=660; d.rectangle((60-6,y0-50,60+sw+6,y0+sh+6),outline=G,width=4); d.rectangle((60-6,y0-50,60+sw+6,y0),fill=G)
-d.text((76,y0-50),' concat.standalones.org ',font=vt(46),fill=D)
+d.text((76,y0-50),f' {DOMAIN} ',font=vt(46),fill=D)
 img.paste(shot,(60,y0))
 yb=y0+sh+60
-ctext(yb,' $0 VIDEO EDITOR ',120,inv=True,pad=24)
-ctext(yb+170,'open source · no watermark',64)
-ctext(yb+240,'no account · 4K export',64)
+ctext(yb,f' {BADGE} ',120,inv=True,pad=24)
+ctext(yb+170,L1,64)
+ctext(yb+240,L2,64)
 # CRT: scanlines + glow + vignette
 a=np.asarray(img).astype(np.float32)
 glow=np.asarray(img.filter(ImageFilter.GaussianBlur(10))).astype(np.float32)
