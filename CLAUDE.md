@@ -2,7 +2,7 @@
 
 Instagram page **@nopay.exe**: English, faceless, one reel = one NEW free tool/offer, in the green CMD/CRT "Phosphor Terminal" look.
 This repo holds the whole pipeline. A scheduled session runs the **Daily run** below every morning and queues 2 reels;
-GitHub Actions posts them at 13:00 and 19:30 IST.
+GitHub Actions posts them at 13:00 and 19:30 IST from the `queue` branch.
 
 ## Hard rules (from the owner — do not change)
 1. **Voice:** ElevenLabs **Marcus – Bright, Upbeat and Clear** (`voice_id y0s2ExEMuum3muUnA6Zd`), model `eleven_v3`, **`generations_count: 1` — always ONE take** (credits). Never regenerate to "retry". If speech can't be generated, stop and report.
@@ -16,15 +16,15 @@ GitHub Actions posts them at 13:00 and 19:30 IST.
 
 ## Daily run (scheduled session)
 Work in this repo. Make **2 reels**: slot A for today 13:00 IST, slot B for today 19:30 IST (if a run is late, use the next free slots).
-0. `bash pipeline/setup.sh`. Read `posted/log.md`, `topics.md`, list the queue: `gh api repos/gitmate72/nopay.exe/releases --jq '.[].tag_name'`. If 4+ reels are already queued, make none and stop.
+0. `bash pipeline/setup.sh`. Read `posted/log.md`, `topics.md`, list the queue: `git ls-remote --heads origin queue && git fetch -q --depth 1 origin queue && git ls-tree --name-only origin/queue`. If 4+ reels are already queued, make none and stop.
 1. **Research** (WebSearch/WebFetch, sources ≤30 days old): "new AI tool free <month year>", "now free", "free plan launched", agent/browser roundups. Shortlist 4, check each official pricing page (Playwright text dump if WebFetch fails), drop paid/trial/old/repeated ones, pick 2. Note the source URLs.
 2. **Script** per reel (~30 s, ~75–90 words): hook → name + "search <domain>" → 2–3 things it does (that the footage can show) → the free plan in exact words from the pricing page → CTA. Write 3–4 hooks, score with `python3 pipeline/tools/ig-reel/hookscore.py hooks.txt`, take the best (≥75; brand-fit "Stop paying for …" is good).
 3. **Voice:** ElevenLabs `creative_generate_speech` (rule 1). Download the mp3 from the returned content_url, then `bash pipeline/audio/tighten.sh voice.mp3 reels/NNN-slug/assets` (writes vo.wav + words.json).
 4. **Record:** `node pipeline/record/capture_site.js reels/NNN-slug/assets name=url ...` (home, product/demo, pricing), extract frames `ffmpeg -i assets/vid_<name>/*.webm -vf fps=30 -q:v 3 assets/fr_<name>/%04d.jpg`, and `node pipeline/record/google_typing.js <domain> reels/NNN-slug/assets/gs`. Make a timestamped contact sheet and pick footage times that skip blank loading seconds and cookie banners.
 5. **Build:** copy `reels/003-zcad/reel.py` + `sfx.py` to `reels/NNN-slug/`, rewrite WT (word times from words.json), ROLLS, scenes, labels, the Google typing timing (TYPE0/DT so typing ends on the spoken domain) and the sfx event times. Check frames with `python3 reels/NNN-slug/reel.py check <t> ...` and LOOK at them (labels overlapping, cut text, empty window). Then `bash pipeline/build.sh reels/NNN-slug <duration>` (duration = voice + 1 s). Verify audio duration = video duration and ~-14 LUFS.
 6. **Caption** → `reels/NNN-slug/caption.txt`: hook line, 2–4 short lines (domain, free plan in plain words, limits), one ask, "Follow @nopay.exe for free AI daily.", 3 hashtags.
-7. **Queue:** `bash scripts/queue_reel.sh reels/NNN-slug <YYYYMMDD-HHMM> <slug>`; add the tool to `topics.md` (date, tool, domain, free claim, pricing URL). Commit `reels/NNN-slug/{reel.py,sfx.py,caption.txt}` + topics.md (never assets/) and push to main.
-8. Finish with a short report: the 2 tools, hooks + scores, free claims with sources, queue tags, and anything skipped and why.
+7. **Queue:** `bash scripts/queue_reel.sh reels/NNN-slug <YYYYMMDD-HHMM> <slug>` (pushes the video to the `queue` branch; GitHub Releases are not allowed from Claude sessions); add the tool to `topics.md` (date, tool, domain, free claim, pricing URL). Commit `reels/NNN-slug/{reel.py,sfx.py,caption.txt}` + topics.md (never assets/) and push to main.
+8. Finish with a short report: the 2 tools, hooks + scores, free claims with sources, queue folders, and anything skipped and why.
 
 ## Layout
 - `pipeline/engine/` CRT engine + fonts (VT323, Space Mono; OFL)
@@ -32,5 +32,5 @@ Work in this repo. Make **2 reels**: slot A for today 13:00 IST, slot B for toda
 - `pipeline/audio/` tighten + word timestamps (faster-whisper)
 - `pipeline/tools/ig-reel/` hook scorer (MIT, from Jakeschincariol/instagram-agent-skill)
 - `reels/NNN-slug/` per-reel script, sfx, caption (assets/ is git-ignored)
-- `scripts/` queue + Instagram posting; `.github/workflows/` posting schedule + token refresh
+- `scripts/` queue (branch `queue`, one folder per reel) + Instagram posting; `.github/workflows/` posting schedule + token refresh
 - `posted/log.md` what went live; `topics.md` every tool used
