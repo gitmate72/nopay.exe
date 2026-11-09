@@ -16,6 +16,7 @@ else
 fi
 D="$Q/$SLOT-$SLUG"; mkdir -p "$D"
 cp "$R/assets/reel.mp4" "$D/reel.mp4"; cp "$R/caption.txt" "$D/caption.txt"
+[ -f "$R/assets/cover.jpg" ] && cp "$R/assets/cover.jpg" "$D/cover.jpg"
 git -C "$Q" add -A
 git -C "$Q" -c user.name="nopay-bot" -c user.email="nopay-bot@users.noreply.github.com" commit -q -m "queue $SLOT-$SLUG"
 git -C "$Q" push -q origin queue

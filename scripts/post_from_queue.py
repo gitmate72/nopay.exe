@@ -36,7 +36,11 @@ if DRY:
     print('DRY RUN. Caption:\n' + caption)
     sys.exit(0)
 
-out = subprocess.run([sys.executable, 'scripts/post_reel.py', video, cap], capture_output=True, text=True)
+args = [sys.executable, 'scripts/post_reel.py', video, cap]
+if os.path.exists(os.path.join(q, item, 'cover.jpg')):   # repo is public, so Instagram can fetch the raw file
+    args.append(f'https://raw.githubusercontent.com/{REPO}/queue/{item}/cover.jpg')
+    print('cover:', args[-1])
+out = subprocess.run(args, capture_output=True, text=True)
 sys.stderr.write(out.stderr)
 if out.returncode != 0:
     raise SystemExit(out.stdout + out.stderr)

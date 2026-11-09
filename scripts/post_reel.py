@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Publish one MP4 as an Instagram Reel (Instagram API with Instagram Login, resumable upload).
 
-usage: post_reel.py <video.mp4> <caption.txt>
+usage: post_reel.py <video.mp4> <caption.txt> [cover_image_url]
 env:   IG_ACCESS_TOKEN, IG_USER_ID, optional IG_API_VERSION (default v23.0)
 prints JSON {"media_id": ..., "permalink": ...}
 """
@@ -27,7 +27,7 @@ def call(method, url, params=None, data=None, headers=None):
 
 
 def main():
-    if len(sys.argv) != 3:
+    if len(sys.argv) not in (3, 4):
         raise SystemExit(__doc__)
     if not TOKEN or not IGID:
         raise SystemExit('Missing IG_ACCESS_TOKEN or IG_USER_ID (add them as repository secrets).')
@@ -36,9 +36,11 @@ def main():
     size = os.path.getsize(video)
 
     # 1) create a resumable REELS container
-    c = call('POST', f'{BASE}/{IGID}/media', params={
-        'media_type': 'REELS', 'upload_type': 'resumable', 'caption': caption,
-        'share_to_feed': 'true', 'access_token': TOKEN})
+    params = {'media_type': 'REELS', 'upload_type': 'resumable', 'caption': caption,
+              'share_to_feed': 'true', 'access_token': TOKEN}
+    if len(sys.argv) == 4 and sys.argv[3]:
+        params['cover_url'] = sys.argv[3]   # public image URL used as the reel cover / thumbnail
+    c = call('POST', f'{BASE}/{IGID}/media', params=params)
     cid, uri = c['id'], c.get('uri') or f'https://rupload.facebook.com/ig-api-upload/{VER}/{c["id"]}'
     print('container', cid, file=sys.stderr)
 
