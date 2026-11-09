@@ -31,7 +31,18 @@ fs.mkdirSync(out, { recursive: true });
     await p.screenshot({ path: path.join(out, `${name}_0.png`) });
     for (let s = 1; s <= 7; s++) {
       await p.mouse.move(400 + (s % 2) * 400, 300 + (s % 3) * 120, { steps: 15 });
-      await p.mouse.wheel(0, 520); await p.waitForTimeout(1600);
+      const before = await p.evaluate(() => window.scrollY + (document.scrollingElement ? document.scrollingElement.scrollTop : 0));
+      await p.mouse.wheel(0, 520); await p.waitForTimeout(700);
+      const after = await p.evaluate(() => window.scrollY + (document.scrollingElement ? document.scrollingElement.scrollTop : 0));
+      if (after === before) {   // sites with custom scroll containers ignore the wheel: scroll by script instead
+        await p.evaluate(() => {
+          const els = [document.scrollingElement, ...document.querySelectorAll('main, [class*=scroll], body > div, #__next, #root')].filter(Boolean);
+          const el = els.find(e => e.scrollHeight > e.clientHeight + 50) || document.scrollingElement;
+          el.scrollBy({ top: 520, behavior: 'smooth' }); window.scrollBy({ top: 520, behavior: 'smooth' });
+        });
+        await p.keyboard.press('PageDown').catch(() => { });
+      }
+      await p.waitForTimeout(900);
       await p.screenshot({ path: path.join(out, `${name}_${s}.png`) });
     }
     fs.writeFileSync(path.join(out, name + '.txt'), await p.evaluate(() => document.body ? document.body.innerText : ''));

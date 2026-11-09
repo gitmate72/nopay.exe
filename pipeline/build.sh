@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Render + mix + mux one reel.  usage: pipeline/build.sh reels/NNN-slug <duration_seconds> [workers]
-# expects in the reel dir: reel.py, sfx.py, assets/vo.wav (tightened voice)
+# expects in the reel dir: spec.py (preferred, see reels/_lib/specreel.py) or reel.py + sfx.py, and assets/vo.wav
 set -euo pipefail
 R="$1"; DUR="$2"; WORK="${3:-6}"
 A="$R/assets"; N=$(python3 -c "print(round($DUR*30))")
@@ -8,10 +8,10 @@ rm -rf "$A/frames"; mkdir -p "$A/frames"
 per=$(( (N + WORK - 1) / WORK ))
 for k in $(seq 0 $((WORK-1))); do
   a=$((k*per)); b=$(((k+1)*per)); [ $b -gt $N ] && b=$N; [ $a -ge $N ] && continue
-  python3 "$R/reel.py" $a $b &
+  if [ -f "$R/spec.py" ]; then python3 "$(dirname "$0")/../reels/_lib/specreel.py" "$R" $a $b & else python3 "$R/reel.py" $a $b & fi
 done; wait
 got=$(ls "$A/frames" | wc -l); [ "$got" -eq "$N" ] || { echo "frames $got != $N"; exit 1; }
-python3 "$R/sfx.py" "$A/fx.wav"
+if [ -f "$R/spec.py" ]; then python3 "$(dirname "$0")/../reels/_lib/autosfx.py" "$R" "$A/fx.wav"; else python3 "$R/sfx.py" "$A/fx.wav"; fi
 ffmpeg -v error -y -framerate 30 -i "$A/frames/%04d.jpg" -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p "$A/video.mp4"
 # mix: normalise voice and fx separately, sidechain-duck fx, then final loudness (never chain all in one graph: it truncates)
 ffmpeg -v error -y -i "$A/vo.wav" -af "apad=whole_dur=$DUR,loudnorm=I=-16:TP=-1.5" -ar 48000 "$A/v_n.wav"
