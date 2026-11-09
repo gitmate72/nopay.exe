@@ -1,0 +1,34 @@
+name: Refresh Instagram token
+
+# Instagram long-lived tokens last 60 days. This refreshes it every 2 weeks.
+# Saving the new token back needs a secret GH_PAT (fine-grained token for this repo with "Secrets: read and write").
+# Without GH_PAT it only checks the token still works.
+on:
+  schedule:
+    - cron: '0 3 1,15 * *'
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refresh
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -e
+          [ -n "$IG_ACCESS_TOKEN" ] || { echo "::error::IG_ACCESS_TOKEN secret is missing"; exit 1; }
+          resp=$(curl -s "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$IG_ACCESS_TOKEN")
+          new=$(echo "$resp" | python3 -c "import sys,json;print(json.load(sys.stdin).get('access_token',''))")
+          days=$(echo "$resp" | python3 -c "import sys,json;print(int(json.load(sys.stdin).get('expires_in',0))//86400)")
+          [ -n "$new" ] || { echo "::error::Refresh failed: $(echo "$resp" | sed "s/$IG_ACCESS_TOKEN/***/g")"; exit 1; }
+          echo "::add-mask::$new"
+          echo "Token valid for $days more days."
+          if [ -n "$GH_PAT" ]; then
+            GH_TOKEN="$GH_PAT" gh secret set IG_ACCESS_TOKEN --repo "$REPO" --body "$new"
+            echo "Saved refreshed token."
+          else
+            echo "::warning::GH_PAT not set, so the refreshed token was not saved. Add GH_PAT or replace IG_ACCESS_TOKEN by hand before it expires."
+          fi

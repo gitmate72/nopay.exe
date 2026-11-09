@@ -1,0 +1,34 @@
+name: Post reel to Instagram
+
+on:
+  schedule:
+    - cron: '30 7 * * *'   # 13:00 IST
+    - cron: '0 14 * * *'   # 19:30 IST
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Only show what would be posted'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: post-reel
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Post oldest queued reel
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_API_VERSION: ${{ vars.IG_API_VERSION || 'v23.0' }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: python3 scripts/post_from_queue.py
