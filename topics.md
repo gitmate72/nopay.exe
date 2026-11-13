@@ -13,5 +13,6 @@
 | 2026-11-09 | Open Generative AI (Higgsfield alt) | github.com/Anil-matcha/Open-Generative-AI | app free (MIT); local image models free, cloud models use credits | github repo README |
 | 2026-11-09 | Inbox Zero (Superhuman alt) | getinboxzero.com | app free + open source; AI add-on from $20/mo or self-host | getinboxzero.com/pricing |
 | 2026-11-12 | Wanaka Studio (AI game maker) | wanaka.app | $0 forever, no credit card, 60 credits/day (Lite model) | wanaka.app/#pricing; Product Hunt weekly #45 (Nov 2 2026) |
+| 2026-11-13 | CuriousLM (on-device private AI) | curiouslm.com | free, no account, no ads; runs locally in browser / Android beta | curiouslm.com/about, curiouslm.com/android; Product Hunt daily Nov 2 2026 |
 
-Rejected (paid key feature): Opera Neon (agents $19.90/mo), ChatGPT Atlas agent mode (Plus).
+Rejected (paid key feature): Opera Neon (agents $19.90/mo), ChatGPT Atlas agent mode (Plus), ClipsPal ($59 lifetime), TK by Medium (early access: Medium members or invite only).
