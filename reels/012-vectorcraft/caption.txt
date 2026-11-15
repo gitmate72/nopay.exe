@@ -1,0 +1,12 @@
+Stop paying for Adobe Illustrator. 🎨
+
+VectorCraft is a free, open-source vector app made by ArtCraft.
+→ getartcraft.com
+→ real pen tool, Pathfinder, live effects like outer glow; opens SVG and PDF
+→ Claude and other AI agents can draw in it (MCP server)
+→ free and open source (MIT / Apache-2.0), no subscription, Mac / Windows / Linux. It's still alpha, so expect rough edges.
+
+Would you switch from Illustrator? 👇
+Follow @nopay.exe for free AI daily.
+
+#graphicdesign #aitools #nopay

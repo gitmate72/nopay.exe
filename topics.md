@@ -15,5 +15,6 @@
 | 2026-11-12 | Wanaka Studio (AI game maker) | wanaka.app | $0 forever, no credit card, 60 credits/day (Lite model) | wanaka.app/#pricing; Product Hunt weekly #45 (Nov 2 2026) |
 | 2026-11-13 | CuriousLM (on-device private AI) | curiouslm.com | free, no account, no ads; runs locally in browser / Android beta | curiouslm.com/about, curiouslm.com/android; Product Hunt daily Nov 2 2026 |
 | 2026-11-14 | Yogurt (Granola alt, AI meeting notes) | yogurt.so | free + open source (MIT), AI runs locally, Mac/Win/Linux, no bot joins | yogurt.so (FAQ); github.com/FrigadeHQ/yogurt; Product Hunt daily Nov 12 2026 |
+| 2026-11-15 | VectorCraft (Illustrator alt, by ArtCraft) | getartcraft.com | free + open source (MIT OR Apache-2.0), no subscription; alpha; Mac/Win/Linux | getartcraft.com/apps/vectorcraft, getartcraft.com/pricing (footnote), github.com/storytold/vectorcraft; XDA Nov 8 2026 |
 
 Rejected (paid key feature): Opera Neon (agents $19.90/mo), ChatGPT Atlas agent mode (Plus), ClipsPal ($59 lifetime), TK by Medium (early access: Medium members or invite only).
