@@ -7,3 +7,4 @@
 | 2026-11-14 00:20 IST | 20261112-1200-inboxzero | Stop paying for Superhuman. 📬 | https://www.instagram.com/reel/DfsUFdODagT/ |
 | 2026-11-14 23:39 IST | 20261113-1200-wanaka | Stop paying for game devs. 🎮 | https://www.instagram.com/reel/Dfu0IvOALy3/ |
 | 2026-11-16 04:44 IST | 20261114-1200-curiouslm | Stop paying for private AI. 🔒 | https://www.instagram.com/reel/Dfx7zokINV9/ |
+| 2026-11-17 01:02 IST | 20261115-1200-yogurt | Stop paying for Granola. 📝 | https://www.instagram.com/reel/Df0HUYjDmlA/ |
