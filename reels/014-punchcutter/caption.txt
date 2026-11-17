@@ -1,0 +1,12 @@
+Stop paying for Calligraphr. ✍️
+
+Punchcutter is a new, open-source AI type foundry.
+→ byrishi.github.io/punchcutter
+→ write the alphabet on any paper, snap a photo, and it traces every letter into a real font family (spacing + kerning). Or describe a style in one sentence.
+→ every font comes with its own Studio app: weight slider, type tester, TTF/OTF/WOFF2 download
+→ runs inside Claude, ChatGPT, Codex or a plain command line. Free and open source (MIT), and the fonts you make are yours.
+
+What would you turn into a font first? 👇
+Follow @nopay.exe for free AI daily.
+
+#fonts #aitools #nopay

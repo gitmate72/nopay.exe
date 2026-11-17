@@ -17,5 +17,6 @@
 | 2026-11-14 | Yogurt (Granola alt, AI meeting notes) | yogurt.so | free + open source (MIT), AI runs locally, Mac/Win/Linux, no bot joins | yogurt.so (FAQ); github.com/FrigadeHQ/yogurt; Product Hunt daily Nov 12 2026 |
 | 2026-11-15 | VectorCraft (Illustrator alt, by ArtCraft) | getartcraft.com | free + open source (MIT OR Apache-2.0), no subscription; alpha; Mac/Win/Linux | getartcraft.com/apps/vectorcraft, getartcraft.com/pricing (footnote), github.com/storytold/vectorcraft; XDA Nov 8 2026 |
 | 2026-11-16 | CaptureFlow (Loom alt, screen recorder) | captureflow.dev | $0: up to 25 recordings, 5 min each, no credit card; open source (AGPL), self-host free | captureflow.dev/pricing; github.com/sardorml/captureflow; Product Hunt daily Nov 14 2026 |
+| 2026-11-17 | Punchcutter (Calligraphr alt, AI font maker) | byrishi.github.io/punchcutter | free + open source (MIT), fonts you make are yours; runs in Claude/ChatGPT/Codex or CLI | byrishi.github.io/punchcutter (footer, README license); github.com/byrishi/punchcutter; Product Hunt daily Nov 16 2026 |
 
-Rejected (paid key feature): Opera Neon (agents $19.90/mo), ChatGPT Atlas agent mode (Plus), ClipsPal ($59 lifetime), TK by Medium (early access: Medium members or invite only).
+Rejected (paid key feature): Opera Neon (agents $19.90/mo), ChatGPT Atlas agent mode (Plus), ClipsPal ($59 lifetime), TK by Medium (early access: Medium members or invite only), Rakazo (free only if self-hosted on your own server; hosted from $15/mo).
