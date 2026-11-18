@@ -1,0 +1,5 @@
+Stop paying for circuit simulators. This one runs free in your browser.
+Stop buying parts just to test a circuit.
+Stop paying for Proteus. Build real circuits free in your browser.
+You don't need a lab to learn electronics anymore.
+Stop burning parts. Test every circuit free in your browser first.

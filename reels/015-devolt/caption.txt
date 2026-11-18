@@ -1,0 +1,12 @@
+Stop paying for Proteus. 🔌
+
+de:volt is a new breadboard simulator that runs live in your browser.
+→ devoltapp.com
+→ drag in a breadboard, drop parts, run wires: the circuit runs while you build. 105 parts, 4-channel oscilloscope, multimeter.
+→ Arduino UNO/Nano and micro:bit / RP2040 code actually runs in the sim.
+→ Hobby plan is $0 forever: every part in the catalog, 5 cloud projects (100 components each). No install, guest mode with no sign-up. AI helper is Pro only.
+
+What circuit would you build first? 👇
+Follow @nopay.exe for free AI daily.
+
+#electronics #arduino #nopay
