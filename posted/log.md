@@ -10,3 +10,4 @@
 | 2026-11-17 01:02 IST | 20261115-1200-yogurt | Stop paying for Granola. 📝 | https://www.instagram.com/reel/Df0HUYjDmlA/ |
 | 2026-11-18 05:19 IST | 20261116-1200-vectorcraft | Stop paying for Adobe Illustrator. 🎨 | https://www.instagram.com/reel/Df3JgYKk-uQ/ |
 | 2026-11-19 06:37 IST | 20261117-1200-captureflow | Stop paying for Loom. 🎥 | https://www.instagram.com/reel/Df53Io4DJXB/ |
+| 2026-11-20 05:14 IST | 20261118-1200-punchcutter | Stop paying for Calligraphr. ✍️ | https://www.instagram.com/reel/Df8Sdr3iSNR/ |
