@@ -1,0 +1,12 @@
+Stop paying for Wispr Flow. 🎙️
+
+BetterWispr is a new free, open-source voice typing app for Mac.
+→ betterwispr.com (Wispr, no "h")
+→ hold Option + Space in any app, talk, let go: clean text lands where you were typing. Drops the ums, learns your words, meeting notes with no bot.
+→ free, Apache 2.0, no account. Speech models run on your Mac, nothing is uploaded.
+→ macOS 14+ only (Apple Silicon recommended). AI "dictate and format" mode needs your own model (Ollama, API key, Claude Code or Codex).
+
+What would you dictate first? 👇
+Follow @nopay.exe for free AI daily.
+
+#productivity #mac #nopay
