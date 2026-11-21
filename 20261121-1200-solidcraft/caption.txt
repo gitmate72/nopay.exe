@@ -1,0 +1,12 @@
+Stop paying for 3D CAD. 🧊
+
+SolidCraft is a new free, open-source parametric CAD app (an Autodesk Fusion alternative).
+→ solidcraft.io
+→ sketch, add dimensions, extrude into a real 3D part. Change one number (like the height) and the whole model rebuilds. STEP / STL export.
+→ free, MIT or Apache-2.0, no subscription. Windows, Mac, Linux, or right in your browser. AI agents can drive it through MCP (optional).
+→ still early: great for simple parts, not a full Fusion replacement yet.
+
+What would you design first? 👇
+Follow @nopay.exe for free AI daily.
+
+#3dprinting #cad #nopay
