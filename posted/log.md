@@ -13,3 +13,4 @@
 | 2026-11-20 05:14 IST | 20261118-1200-punchcutter | Stop paying for Calligraphr. ✍️ | https://www.instagram.com/reel/Df8Sdr3iSNR/ |
 | 2026-11-20 23:27 IST | 20261119-1200-devolt | Stop paying for Proteus. 🔌 | https://www.instagram.com/reel/Df-PjtUl3Y3/ |
 | 2026-11-22 00:14 IST | 20261120-1200-betterwispr | Stop paying for Wispr Flow. 🎙️ | https://www.instagram.com/reel/DgA5w-KHBsV/ |
+| 2026-11-22 23:12 IST | 20261121-1200-solidcraft | Stop paying for 3D CAD. 🧊 | https://www.instagram.com/reel/DgDXcPmDJi0/ |
