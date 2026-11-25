@@ -15,3 +15,4 @@
 | 2026-11-22 00:14 IST | 20261120-1200-betterwispr | Stop paying for Wispr Flow. 🎙️ | https://www.instagram.com/reel/DgA5w-KHBsV/ |
 | 2026-11-22 23:12 IST | 20261121-1200-solidcraft | Stop paying for 3D CAD. 🧊 | https://www.instagram.com/reel/DgDXcPmDJi0/ |
 | 2026-11-24 05:20 IST | 20261122-1200-doory | Stop paying for Canva. 🎨 | https://www.instagram.com/reel/DgGmURDkQMl/ |
+| 2026-11-26 00:22 IST | 20261126-1200-vibeoffice | Stop paying for Microsoft Office. 📄 | https://www.instagram.com/reel/DgLN0SKxZAW/ |
